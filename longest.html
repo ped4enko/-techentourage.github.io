@@ -2,6 +2,15 @@
 <html>
 <head>
     <title>Longest Sentences</title>
+    <style>
+        table {
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Find the Longest Sentences</h1>
@@ -10,7 +19,16 @@
     <button onclick="findLongestSentences()">Process</button>
     <br/>
     <h2>Results:</h2>
-    <div id="results"></div>
+    <table id="results">
+        <thead>
+            <tr>
+                <th>Number of words</th>
+                <th>Sentence</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
     <script>
         function findLongestSentences() {
@@ -20,10 +38,14 @@
                 sentences.sort(function(a, b){  // Sort sentences by the number of words
                     return b.split(" ").length - a.split(" ").length;
                 });
-                var results = document.getElementById("results");
+                var results = document.getElementById("results").getElementsByTagName('tbody')[0];
                 results.innerHTML = "";  // Clear previous results
                 for(var i = 0; i < Math.min(3, sentences.length); i++) {  // Display the 3 longest sentences
-                    results.innerHTML += "<p>" + sentences[i] + "</p>";
+                    var row = results.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = sentences[i].split(" ").length;
+                    cell2.innerHTML = sentences[i];
                 }
             }
         }
