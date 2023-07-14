@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Longest Sentences</title>
+</head>
+<body>
+    <h1>Find the Longest Sentences</h1>
+    <textarea id="inputText" rows="10" cols="50" placeholder="Enter your text here"></textarea>
+    <br/>
+    <button onclick="findLongestSentences()">Process</button>
+    <br/>
+    <h2>Results:</h2>
+    <div id="results"></div>
+
+    <script>
+        function findLongestSentences() {
+            var inputText = document.getElementById("inputText").value;
+            var sentences = inputText.match(/[^\.!\?]+[\.!\?]+/g);  // Split input text into sentences
+            if (sentences) {
+                sentences.sort(function(a, b){  // Sort sentences by the number of words
+                    return b.split(" ").length - a.split(" ").length;
+                });
+                var results = document.getElementById("results");
+                results.innerHTML = "";  // Clear previous results
+                for(var i = 0; i < Math.min(3, sentences.length); i++) {  // Display the 3 longest sentences
+                    results.innerHTML += "<p>" + sentences[i] + "</p>";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
